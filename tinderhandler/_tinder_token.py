@@ -36,11 +36,11 @@ def get_tinder_token(fb_access_token, fb_user_id):
     """
 
     url = API_HOST + "/auth"
-    req = requests.post(url,
-                        headers=API_HEADERS,
-                        data=json.dumps(
-                            {'facebook_token': fb_access_token, 'facebook_id': fb_user_id})
-                        )
+    req = requests.post(
+        url,
+        headers=API_HEADERS,
+        data=json.dumps({"facebook_token": fb_access_token, "facebook_id": fb_user_id}),
+    )
     try:
         tinder_auth_token = req.json()["token"]
         API_HEADERS.update({"X-Auth-Token": tinder_auth_token})

@@ -44,13 +44,16 @@ def _get_fb_token(fb_email: str, fb_password: str) -> str:
     s.submit_form(f)
     f = s.get_form()
     try:
-        s.submit_form(f, submit=f.submit_fields['__CONFIRM__'])
+        s.submit_form(f, submit=f.submit_fields["__CONFIRM__"])
         access_token = re.search(
-            r"access_token=([\w\d]+)", s.response.content.decode()).groups()[0]
+            r"access_token=([\w\d]+)", s.response.content.decode()
+        ).groups()[0]
         return str(access_token)
     except Exception as ex:
-        raise ValueError("access token could not be retrieved. Check your username and password. "
-                         "Official error: %s" % ex)
+        raise ValueError(
+            "access token could not be retrieved. Check your username and password. "
+            "Official error: %s" % ex
+        )
 
 
 def _get_fb_id(fb_access_token: str) -> str:
@@ -62,6 +65,5 @@ def _get_fb_id(fb_access_token: str) -> str:
     :return: Returns the user's id
     """
 
-    req = requests.get(
-        'https://graph.facebook.com/me?access_token=' + fb_access_token)
+    req = requests.get("https://graph.facebook.com/me?access_token=" + fb_access_token)
     return str(req.json()["id"])

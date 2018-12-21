@@ -21,4 +21,13 @@
 from tinderhandler import Tinder
 
 handler = Tinder()
-print(handler.get_endpoint("profile", {}))
+user_profiles = handler.get_endpoint("user/recs", {})
+print("Before:")
+for user in user_profiles['results']:
+    print(user['_id'])
+for user in user_profiles['results']:
+    handler.get_endpoint('like/' + user['_id'], {})
+user_profiles = handler.get_endpoint("user/recs", {})
+print("After:")
+for user in user_profiles['results']:
+    print(user['_id'])
